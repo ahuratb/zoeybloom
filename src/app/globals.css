@@ -1,0 +1,303 @@
+@import "tailwindcss";
+
+/* ---------- Design Tokens (Tailwind v4 @theme) ---------- */
+@theme {
+  /* Brand palette */
+  --color-cream: #FEFCFA;
+  --color-petal: #FFE8E5;
+  --color-pink: #FF8FAB;
+  --color-blush: #FFD4D8;
+  --color-rose: #E8456B;
+  --color-ink: #1A1A1A;
+  --color-mute: #8B8B8B;
+
+  /* Glass */
+  --color-glass-bg: rgba(255, 255, 255, 0.6);
+  --color-glass-border: rgba(255, 255, 255, 0.4);
+
+  /* Fonts (Latin wired from next/font in layout.tsx; Arabic from @fontsource imports) */
+  --font-display: var(--font-instrument), "Instrument Serif", "Fraunces", Georgia, serif;
+  --font-body: var(--font-inter), "Inter", "Geist", system-ui, sans-serif;
+  --font-ar-display: "Tajawal", "Segoe UI", system-ui, sans-serif;
+  --font-ar-body: "IBM Plex Sans Arabic", "Tajawal", "Segoe UI", system-ui, sans-serif;
+
+  /* Animations */
+  --animate-ping-slow: ping-slow 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-float-slow: float-slow 6s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2.4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes ping-slow {
+  0% { transform: scale(1); opacity: 0.6; }
+  80%, 100% { transform: scale(2.4); opacity: 0; }
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%      { transform: translateY(-10px) rotate(3deg); }
+}
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* ---------- Base ---------- */
+:root {
+  --background: #FEFCFA;
+  --foreground: #1A1A1A;
+}
+
+html, body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* ---------- Arabic mode ---------- */
+.lang-ar {
+  font-family: var(--font-ar-body), "IBM Plex Sans Arabic", "Tajawal", sans-serif;
+  line-height: 1.9;
+  letter-spacing: 0 !important;
+}
+.lang-ar h1,
+.lang-ar h2,
+.lang-ar h3,
+.lang-ar .font-display {
+  font-family: var(--font-ar-display), "Tajawal", sans-serif !important;
+  letter-spacing: 0 !important;
+  word-spacing: 0.05em;
+  line-height: 1.6;
+  direction: rtl;
+  unicode-bidi: embed;
+}
+.lang-ar p,
+.lang-ar span,
+.lang-ar li,
+.lang-ar a,
+.lang-ar button,
+.lang-ar label,
+.lang-ar input,
+.lang-ar textarea,
+.lang-ar select {
+  font-family: var(--font-ar-body), "IBM Plex Sans Arabic", "Tajawal", sans-serif;
+  letter-spacing: 0 !important;
+  line-height: 1.9;
+}
+.lang-ar * {
+  letter-spacing: 0 !important;
+}
+/* Brand-Latin elements (logos, brand names) must NOT inherit Arabic font even
+   when nested inside .lang-ar — they're isolated by dir="ltr" + class. */
+.lang-ar .brand-latin {
+  font-family: var(--font-display), "Instrument Serif", serif !important;
+  letter-spacing: 0.04em !important;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Brand names that must stay Latin even in AR mode */
+.brand-latin {
+  font-family: var(--font-display) !important;
+  letter-spacing: 0.04em !important;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* ---------- Selection ---------- */
+::selection {
+  background: var(--color-blush);
+  color: var(--color-ink);
+}
+
+/* ---------- Scrollbar (subtle pink) ---------- */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 143, 171, 0.35);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 143, 171, 0.6);
+}
+
+/* ---------- Glass utilities ---------- */
+.glass-frame {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 20px 60px -20px rgba(232, 69, 107, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 8px 32px rgba(255, 143, 171, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- Cursor ---------- */
+@media (hover: hover) and (pointer: fine) {
+  html, body { cursor: none; }
+  a, button, [role="button"], input, textarea, select { cursor: none; }
+}
+@media (hover: none) {
+  .custom-cursor { display: none !important; }
+}
+
+/* ---------- Lenis ---------- */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------- Floating label form ---------- */
+.float-field {
+  position: relative;
+}
+.float-field input,
+.float-field textarea,
+.float-field select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 14px;
+  padding: 22px 16px 8px;
+  font-size: 15px;
+  color: var(--color-ink);
+  outline: none;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.float-field textarea { resize: none; min-height: 110px; padding-top: 28px; }
+.float-field input:focus,
+.float-field textarea:focus,
+.float-field select:focus {
+  border-color: var(--color-pink);
+  background: rgba(255, 255, 255, 0.85);
+}
+.float-field label {
+  position: absolute;
+  inset-inline-start: 16px;
+  top: 16px;
+  font-size: 14px;
+  color: var(--color-mute);
+  pointer-events: none;
+  transform-origin: inline-start top;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+[dir="rtl"] .float-field label {
+  transform-origin: right top;
+}
+[dir="ltr"] .float-field label {
+  transform-origin: left top;
+}
+.float-field input:focus + label,
+.float-field input:not(:placeholder-shown) + label,
+.float-field textarea:focus + label,
+.float-field textarea:not(:placeholder-shown) + label,
+.float-field select:focus + label,
+.float-field select:not([data-empty="true"]) + label {
+  transform: translateY(-9px) scale(0.78);
+  color: var(--color-rose);
+}
+
+/* Splitting.js char animation prep */
+.split-char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* ---------- Leaflet HQ marker ---------- */
+.zb-hq-marker {
+  position: relative;
+  width: 28px;
+  height: 28px;
+}
+.zb-hq-marker .zb-hq-ring,
+.zb-hq-marker .zb-hq-core,
+.zb-hq-marker .zb-hq-pip {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 9999px;
+  transform: translate(-50%, -50%);
+}
+.zb-hq-marker .zb-hq-ring {
+  width: 12px;
+  height: 12px;
+  background: rgba(232, 69, 107, 0.45);
+  animation: pulse-ring 2.4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+.zb-hq-marker .zb-hq-ring--2 {
+  animation-delay: 0.6s;
+  background: rgba(232, 69, 107, 0.3);
+}
+.zb-hq-marker .zb-hq-core {
+  width: 12px;
+  height: 12px;
+  background: #e8456b;
+  box-shadow: 0 0 14px rgba(232, 69, 107, 0.65), 0 4px 10px rgba(232, 69, 107, 0.55);
+}
+.zb-hq-marker .zb-hq-pip {
+  width: 6px;
+  height: 6px;
+  background: #ffffff;
+}
+.zb-hq-tooltip {
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(232, 69, 107, 0.25) !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 8px 22px -10px rgba(232, 69, 107, 0.4) !important;
+  color: #1a1a1a !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  padding: 4px 10px !important;
+}
+.zb-hq-tooltip::before {
+  border-top-color: rgba(255, 255, 255, 0.92) !important;
+}
+/* Soften Leaflet's default UI to match the brand */
+.leaflet-container {
+  font-family: var(--font-body) !important;
+  background: #fefcfa !important;
+}
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.75) !important;
+  font-size: 9px !important;
+  padding: 1px 6px !important;
+}
+.leaflet-bar {
+  border: none !important;
+  box-shadow: 0 6px 16px -6px rgba(232, 69, 107, 0.25) !important;
+}
+.leaflet-bar a {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #1a1a1a !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+}
+.leaflet-bar a:hover {
+  background: #ffffff !important;
+  color: #e8456b !important;
+}
