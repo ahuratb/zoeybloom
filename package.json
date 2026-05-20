@@ -26,7 +26,6 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-leaflet": "^5.0.0",
-    "react-simple-maps": "^3.0.0",
     "splitting": "^1.1.0",
     "three": "^0.184.0"
   },
@@ -37,7 +36,6 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/react-simple-maps": "^3.0.6",
     "@types/splitting": "^1.0.6",
     "@types/three": "^0.184.1",
     "eslint": "^9",
