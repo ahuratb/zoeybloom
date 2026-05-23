@@ -15,9 +15,9 @@
   --color-glass-bg: rgba(255, 255, 255, 0.6);
   --color-glass-border: rgba(255, 255, 255, 0.4);
 
-  /* Fonts (Latin wired from next/font in layout.tsx; Arabic from @fontsource imports) */
-  --font-display: var(--font-instrument), "Instrument Serif", "Fraunces", Georgia, serif;
-  --font-body: var(--font-inter), "Inter", "Geist", system-ui, sans-serif;
+  /* Fonts — loaded via @fontsource npm packages (network-independent) */
+  --font-display: "Instrument Serif", "Fraunces", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
   --font-ar-display: "Tajawal", "Segoe UI", system-ui, sans-serif;
   --font-ar-body: "IBM Plex Sans Arabic", "Tajawal", "Segoe UI", system-ui, sans-serif;
 
@@ -47,8 +47,12 @@
   --foreground: #1A1A1A;
 }
 
-html, body {
+html {
+  /* Canvas background — prevents flash and shows behind z-index:-10 glows */
   background: var(--color-cream);
+}
+
+html, body {
   color: var(--color-ink);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -56,6 +60,8 @@ html, body {
 }
 
 body {
+  /* Intentionally no background here — body must be transparent so the
+     fixed AmbientGlows layer (z-index:-10) is visible above the canvas. */
   overflow-x: hidden;
 }
 
@@ -168,6 +174,11 @@ html.lenis, html.lenis body { height: auto; }
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+  .glow-orb {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
   }
 }
 

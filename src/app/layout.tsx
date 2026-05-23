@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Inter } from "next/font/google";
 
-// Arabic fonts loaded locally (no CDN) via @fontsource — see globals.css
+// Latin fonts — local npm packages, no network required at build time
+import "@fontsource-variable/inter/index.css";
+import "@fontsource/instrument-serif/latin-400.css";
+
+// Arabic fonts — via @fontsource
 import "@fontsource/tajawal/arabic-300.css";
 import "@fontsource/tajawal/arabic-400.css";
 import "@fontsource/tajawal/arabic-500.css";
@@ -13,19 +16,7 @@ import "@fontsource/ibm-plex-sans-arabic/arabic-500.css";
 import "./globals.css";
 import { LangProvider } from "@/context/LangContext";
 import LenisProvider from "@/components/layout/LenisProvider";
-
-const instrument = Instrument_Serif({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-instrument",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
+import AmbientGlows from "@/components/ui/AmbientGlows";
 
 export const metadata: Metadata = {
   title: "ZoeyBloom — Where Beauty Becomes a Story",
@@ -43,13 +34,9 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      dir="ltr"
-      suppressHydrationWarning
-      className={`${instrument.variable} ${inter.variable} antialiased`}
-    >
-      <body className="min-h-screen bg-cream text-ink">
+    <html lang="en" dir="ltr" suppressHydrationWarning className="antialiased">
+      <body className="min-h-screen text-ink">
+        <AmbientGlows />
         <LangProvider>
           <LenisProvider>{children}</LenisProvider>
         </LangProvider>

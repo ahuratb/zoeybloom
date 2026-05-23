@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,11 +11,21 @@ import MagneticButton from "@/components/ui/MagneticButton";
 
 if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
+const HeroBloom = dynamic(() => import("@/components/three/HeroBloom"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-[240px] h-[240px] sm:w-[320px] sm:h-[320px]" />
+  ),
+});
+
+const ParticleField = dynamic(() => import("@/components/three/ParticleField"), {
+  ssr: false,
+});
+
 export default function Hero() {
   const { t } = useLang();
   const sectionRef = useRef<HTMLElement>(null);
-  const logoWrapRef = useRef<HTMLDivElement>(null);
-  const logoGlowRef = useRef<HTMLSpanElement>(null);
+  const bloomRef = useRef<HTMLDivElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
   const ctasRef = useRef<HTMLDivElement>(null);
 
@@ -24,38 +34,19 @@ export default function Hero() {
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reduced) return;
 
-      // Logo: parallax up + white glow ramps as the section scrolls past
-      if (logoWrapRef.current && sectionRef.current) {
+      // Bloom: parallax up at 0.3× scroll speed
+      if (bloomRef.current && sectionRef.current) {
         gsap.fromTo(
-          logoWrapRef.current,
-          { yPercent: 0, scale: 1 },
+          bloomRef.current,
+          { yPercent: 0 },
           {
-            yPercent: -18,
-            scale: 1.04,
+            yPercent: -14,
             ease: "none",
             scrollTrigger: {
               trigger: sectionRef.current,
               start: "top top",
               end: "bottom top",
               scrub: true,
-            },
-          }
-        );
-      }
-
-      if (logoGlowRef.current && sectionRef.current) {
-        gsap.fromTo(
-          logoGlowRef.current,
-          { opacity: 0, scale: 0.7 },
-          {
-            opacity: 1,
-            scale: 1.6,
-            ease: "none",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 80%",
-              end: "bottom top",
-              scrub: 1,
             },
           }
         );
@@ -84,32 +75,16 @@ export default function Hero() {
       id="hero"
       className="relative min-h-[100svh] flex flex-col items-center justify-center pt-28 pb-14 text-center"
     >
-      {/* Logo with scroll-driven white glow */}
-      <div
-        ref={logoWrapRef}
-        className="relative mb-8 sm:mb-10 w-full max-w-[440px] px-2"
-        dir="ltr"
-      >
-        {/* White glow halo behind the logo — drives via GSAP */}
-        <span
-          ref={logoGlowRef}
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 m-auto"
-          style={{
-            background:
-              "radial-gradient(circle at 50% 50%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.55) 30%, rgba(255,255,255,0.0) 70%)",
-            filter: "blur(28px)",
-          }}
-        />
+      {/* Falling petal particles — absolute background */}
+      <ParticleField />
 
-        <Image
-          src="/zoeybloom-logo.png"
-          alt="ZoeyBloom"
-          width={880}
-          height={224}
-          priority
-          className="w-full h-auto object-contain drop-shadow-[0_8px_24px_rgba(255,143,171,0.25)]"
-        />
+      {/* 3D Bloom — the centrepiece */}
+      <div
+        ref={bloomRef}
+        className="w-[240px] h-[240px] sm:w-[320px] sm:h-[320px] mb-2"
+        aria-hidden
+      >
+        <HeroBloom />
       </div>
 
       {/* Eyebrow */}

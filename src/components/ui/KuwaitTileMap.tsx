@@ -35,7 +35,7 @@ export default function KuwaitTileMap() {
 
     // CartoDB Voyager tiles — soft palette, full street detail, free
     L.tileLayer(
-      "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{y}/{x}{r}.png",
+      "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
       {
         maxZoom: 19,
         attribution:
