@@ -70,6 +70,9 @@ export type Dictionary = {
     successTitle: string;
     successBody: string;
     whatsappCta: string;
+    address: string;
+    phone: string;
+    emailAddress: string;
   };
   footer: {
     tagline: string;
@@ -123,6 +126,13 @@ const en: Dictionary = {
         description:
           "K-beauty derma-formulas, clinically tested, glass-skin proven. The quiet science behind a luminous face.",
         gradient: "from-pink/20 to-petal",
+      },
+      {
+        name: "FABYOU",
+        label: "K-BEAUTY",
+        description:
+          "Best ingredient recipe for natural glowing skin. New-generation Korean skincare built around simplicity, efficacy, and everyday ritual.",
+        gradient: "from-petal/40 to-blush/20",
       },
     ],
   },
@@ -194,6 +204,9 @@ const en: Dictionary = {
     successTitle: "Message received.",
     successBody: "We’ll be in touch within one working day.",
     whatsappCta: "Or message us directly on WhatsApp →",
+    address: "Kuwait, Al Salmiya, Block 2, Salem AlMubarak Street, The 8 Mall, Floor −1, Office No. 17",
+    phone: "+965 4111 9050",
+    emailAddress: "info@zoeybloom.me",
   },
   footer: {
     tagline: "ZoeyBloom — Kuwait’s house of considered beauty.",
@@ -251,6 +264,13 @@ const ar: Dictionary = {
         description:
           "تركيبات كورية مُعتمدة سريرياً، تمنح البشرة بريق الزجاج. علم هادئ خلف وجه مضيء.",
         gradient: "from-pink/20 to-petal",
+      },
+      {
+        name: "FABYOU",
+        label: "كي-بيوتي",
+        description:
+          "أفضل مكوّن لبشرة متوهجة بشكل طبيعي. عناية كورية من الجيل الجديد تقوم على البساطة والفاعلية وطقس يومي.",
+        gradient: "from-petal/40 to-blush/20",
       },
     ],
   },
@@ -322,6 +342,9 @@ const ar: Dictionary = {
     successTitle: "وصلتنا رسالتك.",
     successBody: "سنعود إليك خلال يوم عمل واحد.",
     whatsappCta: "أو راسلينا مباشرة عبر واتساب ←",
+    address: "الكويت، السالمية، قطعة ٢، شارع سالم المبارك، ذا ٨ مول، الطابق −١، مكتب رقم ١٧",
+    phone: "+965 4111 9050",
+    emailAddress: "info@zoeybloom.me",
   },
   footer: {
     tagline: "زوي بلوم — دار الجمال المدروس في الكويت.",

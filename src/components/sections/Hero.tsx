@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import dynamic from "next/dynamic";
 import { useRef } from "react";
 import { gsap } from "gsap";
@@ -26,6 +27,7 @@ export default function Hero() {
   const { t } = useLang();
   const sectionRef = useRef<HTMLElement>(null);
   const bloomRef = useRef<HTMLDivElement>(null);
+  const mobileLogoRef = useRef<HTMLDivElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
   const ctasRef = useRef<HTMLDivElement>(null);
 
@@ -46,6 +48,24 @@ export default function Hero() {
               trigger: sectionRef.current,
               start: "top top",
               end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+      }
+
+      // Logo: glow white as user scrolls
+      if (mobileLogoRef.current && sectionRef.current) {
+        gsap.fromTo(
+          mobileLogoRef.current,
+          { filter: "drop-shadow(0 0 0px rgba(255,255,255,0))" },
+          {
+            filter: "drop-shadow(0 0 28px rgba(255,255,255,1)) drop-shadow(0 0 10px rgba(255,255,255,0.7))",
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top top",
+              end: "40% top",
               scrub: true,
             },
           }
@@ -78,13 +98,16 @@ export default function Hero() {
       {/* Falling petal particles — absolute background */}
       <ParticleField />
 
-      {/* 3D Bloom — the centrepiece */}
-      <div
-        ref={bloomRef}
-        className="w-[240px] h-[240px] sm:w-[320px] sm:h-[320px] mb-2"
-        aria-hidden
-      >
-        <HeroBloom />
+      {/* ZoeyBloom logo — glows white on scroll, all sizes */}
+      <div ref={mobileLogoRef} className="mb-8" aria-hidden>
+        <Image
+          src="/zoeybloom-logo.png"
+          alt=""
+          width={220}
+          height={56}
+          priority
+          className="w-[180px] sm:w-[220px] h-auto object-contain"
+        />
       </div>
 
       {/* Eyebrow */}

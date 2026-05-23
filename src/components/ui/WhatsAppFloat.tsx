@@ -2,7 +2,7 @@
 
 import { useLang } from "@/hooks/useLang";
 
-const PHONE = "96500000000";
+const PHONE = "96541119050";
 
 export default function WhatsAppFloat() {
   const { dir, lang } = useLang();

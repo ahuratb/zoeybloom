@@ -10,6 +10,7 @@ import AboutHorizontal from "@/components/sections/AboutHorizontal";
 import Philosophy from "@/components/sections/Philosophy";
 import ContactForm from "@/components/sections/ContactForm";
 import Footer from "@/components/sections/Footer";
+import LogoMarquee from "@/components/ui/LogoMarquee";
 
 export default function Home() {
   return (
@@ -27,6 +28,7 @@ export default function Home() {
           Skip to content
         </a>
         <Hero />
+        <LogoMarquee />
         <BrandsCarousel />
         <KuwaitMap />
         <AboutHorizontal />

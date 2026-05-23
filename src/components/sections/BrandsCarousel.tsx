@@ -12,6 +12,7 @@ import BrowserFrame from "@/components/ui/BrowserFrame";
 import SoliduSite from "@/components/ui/SoliduSite";
 import ClaralineSite from "@/components/ui/ClaralineSite";
 import EyenlipSite from "@/components/ui/EyenlipSite";
+import FabyouSite from "@/components/ui/FabyouSite";
 
 if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
@@ -34,7 +35,7 @@ const META: Record<string, BrandMeta> = {
       className: "h-16 sm:h-20 w-auto object-contain",
     },
     preview: <SoliduSite />,
-    url: "solidu.com",
+    url: "solidu.me",
   },
   CLARALINE: {
     logo: {
@@ -45,11 +46,29 @@ const META: Record<string, BrandMeta> = {
       className: "h-7 sm:h-8 w-auto object-contain",
     },
     preview: <ClaralineSite />,
-    url: "claraline.com",
+    url: "claralinemakeup.com.tr",
   },
   EYENLIP: {
+    logo: {
+      src: "/eyenlip-logo.png",
+      width: 225,
+      height: 225,
+      alt: "EYENLIP",
+      className: "h-14 sm:h-16 w-auto object-contain",
+    },
     preview: <EyenlipSite />,
     url: "eyenlip.com",
+  },
+  FABYOU: {
+    logo: {
+      src: "/fabyou-logo.png",
+      width: 320,
+      height: 100,
+      alt: "FABYOU",
+      className: "h-10 sm:h-12 w-auto object-contain",
+    },
+    preview: <FabyouSite />,
+    url: "fabyou.com",
   },
 };
 
@@ -59,6 +78,7 @@ function BrandCard({
   description,
   gradient,
   index,
+  total,
   exploreLabel,
 }: {
   name: string;
@@ -66,6 +86,7 @@ function BrandCard({
   description: string;
   gradient: string;
   index: number;
+  total: number;
   exploreLabel: string;
 }) {
   const [spring, api] = useSpring(() => ({
@@ -96,7 +117,7 @@ function BrandCard({
     >
       {/* index pill */}
       <span className="absolute top-5 end-5 brand-latin text-[10px] tracking-[0.2em] text-ink/40">
-        0{index + 1} / 03
+        {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
       </span>
 
       <span className="block text-[10px] tracking-[0.3em] uppercase text-ink/55 mb-3">
@@ -218,6 +239,7 @@ export default function BrandsCarousel() {
           <BrandCard
             key={b.name}
             index={i}
+            total={t.brands.items.length}
             exploreLabel={t.brands.exploreLabel}
             {...b}
           />

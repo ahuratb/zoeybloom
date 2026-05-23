@@ -87,6 +87,30 @@ export default function ContactForm() {
         <p className="mt-4 text-[14.5px] text-ink/60">{t.contact.sub}</p>
       </div>
 
+      {/* Contact info strip */}
+      <div className="flex flex-col gap-2.5 mb-6 reveal-up">
+        <a
+          href={`tel:${t.contact.phone.replace(/\s/g, "")}`}
+          className="flex items-center gap-3 text-[13px] text-ink/70 hover:text-rose transition-colors"
+          dir="ltr"
+        >
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-rose/10 text-rose text-[15px]">✆</span>
+          {t.contact.phone}
+        </a>
+        <a
+          href={`mailto:${t.contact.emailAddress}`}
+          className="flex items-center gap-3 text-[13px] text-ink/70 hover:text-rose transition-colors"
+          dir="ltr"
+        >
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-rose/10 text-rose text-[15px]">✉</span>
+          {t.contact.emailAddress}
+        </a>
+        <div className="flex items-start gap-3 text-[13px] text-ink/70">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-rose/10 text-rose text-[15px]">⌖</span>
+          <span>{t.contact.address}</span>
+        </div>
+      </div>
+
       <div className="glass-frame rounded-[28px] p-6 sm:p-8 reveal-up relative overflow-hidden">
         {!sent ? (
           <form
@@ -137,7 +161,7 @@ export default function ContactForm() {
 
             <div className="flex items-center justify-between pt-2">
               <a
-                href={`https://wa.me/96500000000?text=${encodeURIComponent(
+                href={`https://wa.me/96541119050?text=${encodeURIComponent(
                   lang === "ar" ? "مرحباً زوي بلوم" : "Hi ZoeyBloom"
                 )}`}
                 target="_blank"

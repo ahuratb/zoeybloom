@@ -30,10 +30,10 @@ export default function GlassNav() {
         }}
       />
     <nav
-      className="fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 z-50"
+      className="fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 z-50 w-[80%] sm:w-auto"
       aria-label="Primary"
     >
-      <div className="glass-pill flex items-center gap-1 sm:gap-2 px-2 py-2 rounded-full">
+      <div className="glass-pill flex items-center gap-1 sm:gap-2 px-2 py-2 rounded-full w-full sm:w-auto justify-between sm:justify-start">
         <button
           onClick={() => scrollTo("hero")}
           className="px-2 py-1 transition-opacity hover:opacity-80"
